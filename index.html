@@ -2013,25 +2013,57 @@ function createHighlights(){
 
 /* ============================INICIALIZAÇÃO E BINDINGS============================ */
 
-    // 1. CHAMA A FUNÇÃO PARA CRIAR OS DESTAQUES
-    createHighlights();
-    
-    // 2. ADICIONA OS EVENTOS DE CLIQUE AOS LINKS DO MENU PRINCIPAL
-    menuLinks.forEach(link => {
-        link.addEventListener('click', function(e) {
-            e.preventDefault(); 
-            const targetSelector = this.getAttribute('href');
-            openSectionInModal(targetSelector);
-            
-            menuToggle.classList.remove('active');
-            menuNav.classList.remove('active');
-            menuToggle.setAttribute('aria-expanded', 'false');
-        });
-    });
-    
-    // 3. INICIALIZA A SÍNTESE DE VOZ
-    findPtBrVoice();
+// 1. CHAMA A FUNÇÃO PARA CRIAR OS DESTAQUES
+createHighlights();
 
+// 2. ADICIONA OS EVENTOS DE CLIQUE AOS LINKS DO MENU PRINCIPAL
+menuLinks.forEach(link => {
+    link.addEventListener('click', function(e) {
+        e.preventDefault(); 
+        const targetSelector = this.getAttribute('href');
+        openSectionInModal(targetSelector);
+        
+        // Bônus: Fecha o menu hamburger (útil em telas pequenas)
+        menuToggle.classList.remove('active');
+        menuNav.classList.remove('active');
+        menuToggle.setAttribute('aria-expanded', 'false');
+    });
+});
+
+// 3. ADICIONA EVENTOS DE FECHAMENTO DO MODAL PRINCIPAL (O BOTÃO 'X')
+if (mainModalCloseButton && mainModal) {
+    mainModalCloseButton.addEventListener('click', () => {
+        closeModal(mainModal);
+    });
+
+    // Bônus: Fechar o modal ao clicar no fundo escuro
+    mainModal.addEventListener('click', (e) => {
+        if (e.target === mainModal) { // Verifica se o clique foi no fundo
+            closeModal(mainModal);
+        }
+    });
+}
+
+// 4. ADICIONA EVENTOS DE FECHAMENTO DO MODAL DE IMAGEM (O 'X' DA IMAGEM)
+// (Este botão também não estava funcionando, já corrigi)
+if (imageModalCloseButton && imageModal) {
+    imageModalCloseButton.addEventListener('click', () => {
+        closeModal(imageModal);
+    });
+
+    // Bônus: Fechar a imagem ao clicar no fundo escuro
+    imageModal.addEventListener('click', (e) => {
+        if (e.target === imageModal) { // Verifica se o clique foi no fundo
+            closeModal(imageModal);
+        }
+    });
+}
+
+// 5. INICIALIZA A SÍNTESE DE VOZ
+findPtBrVoice();
+
+// Esta linha (abaixo) já existe no seu código,
+// apenas cole tudo ACIMA dela.
 }); // End of DOMContentLoaded
 </script>
 </body>
