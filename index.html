@@ -2009,9 +2009,36 @@ function createHighlights(){
     });
 }
 
-/* ============================
-INICIALIZAÇÃO E BINDINGS
-============================ */
+
+    /* ============================INICIALIZAÇÃO E BINDINGS============================ */
+
+// 1. CHAMA A FUNÇÃO PARA CRIAR OS DESTAQUES
+// Isso corrige a seção "Destaques da Semana" que estava vazia.
+createHighlights();
+
+// 2. ADICIONA OS EVENTOS DE CLIQUE AOS LINKS DO MENU PRINCIPAL
+// Isso corrige o menu de navegação que não estava funcionando.
+menuLinks.forEach(link => {
+    link.addEventListener('click', function(e) {
+        // Previne o comportamento padrão (rolar para a âncora)
+        e.preventDefault(); 
+        
+        // Pega o seletor (ex: "#inteligencia-artificial")
+        const targetSelector = this.getAttribute('href');
+        
+        // Abre o modal com o conteúdo da seção correta
+        openSectionInModal(targetSelector);
+        
+        // Bônus: Fecha o menu hamburger (útil em telas pequenas)
+        menuToggle.classList.remove('active');
+        menuNav.classList.remove('active');
+        menuToggle.setAttribute('aria-expanded', 'false');
+    });
+});
+
+// A sua chamada para findPtBrVoice() já existe no código,
+// mas garanta que ela também esteja sendo executada aqui.
+findPtBrVoice();
 
 </script>
 </body>
